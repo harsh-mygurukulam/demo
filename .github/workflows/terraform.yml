@@ -3,14 +3,14 @@ name: Terraform S3 Bucket Deployment
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:   # Allows manual trigger
+  workflow_dispatch:   # Manual trigger
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: infra   # 👈 Key part
+        working-directory: infra
 
     steps:
     - name: Checkout code
@@ -21,9 +21,15 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Terraform Plan
       run: terraform plan -no-color
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
