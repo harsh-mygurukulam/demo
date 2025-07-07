@@ -3,5 +3,5 @@ variable "region" {
 }
 
 variable "bucket_name" {
-  default = "my-unique-demo-bucket-12345691"  # Must be globally unique
+  default = "my-unique-demo-bucket-12345692"  # Must be globally unique
 }
